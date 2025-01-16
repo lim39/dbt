@@ -1,0 +1,18 @@
+# dbt_project.yml
+
+name: multi_warehouse_project
+version: 1.0.0
+
+profile: multi_warehouse_profile  # profiles.yml의 Profile 이름
+
+model-paths: ["models"]
+
+# Models 설정
+models:
+  multi_warehouse_project:
+    postgres:  # PostgreSQL 전용 모델
+      +materialized: table # 테이블로 저장
+      +enabled: "{{ (target and target.name == 'postgres_dev') | default(false) }}"  # Postgres 타겟에서만 실행
+    snowflake:  # Snowflake 전용 모델
+      +materialized: table # view로 저장
+      +enabled: "{{ (target and target.name == 'snowflake_dev') | default(false) }}"  # Snowflake 타겟에서만 실행

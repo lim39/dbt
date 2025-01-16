@@ -1,0 +1,24 @@
+multi_warehouse_profile:  # Profile 이름
+  outputs:
+    postgres_dev:  # PostgreSQL 환경
+      type: postgres
+      host: "{{ env_var('POSTGRES_HOST') }}"
+      user: "{{ env_var('POSTGRES_USER') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD') }}"
+      port: 5432
+      dbname: "{{ env_var('POSTGRES_DB') }}"        
+      schema: "{{ env_var('POSTGRES_SCHEMA') }}"   
+      threads: 1
+
+    snowflake_dev:  # Snowflake 환경
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') }}"
+      schema: "{{ env_var('SNOWFLAKE_SCHEMA') }}"
+      threads: 1
+
+  target: postgres_dev  # 기본 사용할 환경 (postgres_dev or snowflake_dev)
